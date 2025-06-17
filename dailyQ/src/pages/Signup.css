@@ -1,0 +1,38 @@
+.Signup{
+  width: 100%;
+
+}
+
+
+.Signup_header_button{
+  margin: 30px 30px;
+  margin-bottom: 40px;
+  color: #8E939F;
+  border: 1px solid transparent;
+  font-size: 18px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.Signup_main{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap:25px;
+  width: 70%;
+  margin: 0  auto;
+}
+
+.Signup_main input{
+  border:2px solid #00664F;
+  padding: 15px;
+  border-radius: 18px;
+}
+
+.Signup_main_button{
+  border:2px solid transparent;
+  background-color: #00664F;
+  color:white;
+  padding:15px;
+  border-radius: 15px;
+}
