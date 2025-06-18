@@ -4,6 +4,11 @@
   background-color: white;
 }
 
+.Signup2 button{
+  cursor: pointer;
+}
+
+
 
 .Signup2_main{
   padding: 30px 50px;
@@ -30,6 +35,16 @@
   margin-bottom: 20px;
 }
 
+.section2 button:active{
+  border : 3px solid #00664F;
+  border-radius: 10px;
+}
+
+.imgClick {
+ border : 3px solid #00664F !important;
+  border-radius: 10px !important;
+}
+
 .section2_button1{
   display: flex;
   justify-content: center;
@@ -37,6 +52,8 @@
   height: 100%;
   margin-bottom:13px;
 }
+
+
 .section2_button2{
   display: flex;
   justify-content: center;
@@ -46,7 +63,7 @@
 
 .section2_button1 button{
   background-color: #E9F5EF;
-  border:2px solid transparent;
+  border:3px solid transparent;
   width: 140px;
   height: 140px;
 }
@@ -65,8 +82,112 @@
 
 .section2_button2 button{
    background-color: #E9F5EF;
-   border:2px solid transparent;
+   border:3px solid transparent;
   width: 140px;
   height: 140px;
+}
+
+.section3_header_text {
+  font-size:20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.section3_main_input input{
+  width: 100%;
+border:2px solid #00664F;
+  padding: 13px;
+  border-radius: 10px;
+}
+
+.section3_notice{
+  padding: 20px 10px;
+}
+
+.section3_notice1{
+  display: flex;
+  align-items: center;
+   margin-bottom : 10px;
+}
+.section3_notice1 span{
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.section3_notice2{
+  display: flex;
+  align-items: center;
+}
+.section3_notice2 span{
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.section3_notice1 img {
+   max-width: 5%;
+  max-height: 5%;
+  object-fit: contain;
+ 
+}
+.section3_notice2 img {
+   max-width: 5%;
+  max-height: 5%;
+  object-fit: contain;
+}
+
+.section4_header_text{
+  font-size:20px;
+  font-weight: 700;
+}
+
+.section4_select{
+  margin: 18px 0px;
+  display: flex;
+  justify-content: space-around;
+  gap:10px;
+  width: 100%;
+}
+
+.select_wrapper{
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.section4_footer {
+  display: flex;
+  align-items: center;
+  margin: 20px 10px;
+}
+.section4_footer img {
+  max-width: 5%;
+  max-height: 5%;
+  object-fit: contain;
+}
+
+.section4_footer span {
+   margin-left: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.section5{
+  display: flex;
+  justify-content: center;
+}
+
+.section5_button {
+  font-size: 18px;
+  color: white;
+  padding : 10px;
+  width: 100%;
+  background-color: #00664F;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.section5_button:hover {
+  border : 3px solid black;
 }
 

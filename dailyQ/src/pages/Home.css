@@ -1,0 +1,61 @@
+.Home {
+  background-color: #E9F5EF;
+  width: 100%;
+  height: 100%;
+}
+
+.HomeMain {
+  background-color: white;
+ border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding : 40px 40px;
+}
+
+.HomeHeader {
+  padding : 30px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.HomeHeader_date{
+  font-size: 50px;
+  font-weight: 800;
+}
+
+.HomeHeader_subDate {
+  font-size: 13px;
+  font-weight: 700;
+  color: #00664F;
+}
+
+.HomHeader_subDate_bottom{
+  display: flex;
+  gap : 5px;
+}
+.HomHeader_radio{
+ margin-left : auto;
+ 
+}
+.buttonGroup{
+display: flex;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.monthButton,
+.weekButton {
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  padding: 5px 13px;
+  background-color: white;
+  margin: 0; /* 중요: 틈 없애기 */
+}
+
+.active {
+  background-color: #00664F;
+  color: white;
+  border-radius: 20px;
+}
