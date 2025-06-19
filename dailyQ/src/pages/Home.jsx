@@ -3,6 +3,9 @@ import { useState } from "react";
 import { getDays } from "../utils/getDays";
 import { getMonth } from "../utils/getMonth";
 import Button from "../components/Button";
+import Days from "../components/Days";
+import quizbutton from "../assets/quizbutton.png";
+import rankingbutton from "../assets/rankingbutton.png";
 
 const Home = () => {
   const [date, setDate] = useState(new Date());
@@ -34,8 +37,21 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="HomeMain">ㄴㅇㄹㅇㄴㄹㅇㄴㄹ</section>
-      <section className="HomeFooter"></section>
+      <section className="HomeMain">
+        <Days mode={radio} date={date} />
+
+        <div className="HomeMain_Quizbutton">
+          <button>
+            <img src={quizbutton}></img>
+          </button>
+        </div>
+        <div className="HomeMain_RankButton">
+          <h3>현재 남양주에서 내 순위는?</h3>
+          <button>
+            <img src={rankingbutton}></img>
+          </button>
+        </div>
+      </section>
     </div>
   );
 };

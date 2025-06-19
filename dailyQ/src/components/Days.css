@@ -1,0 +1,57 @@
+.Days {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap : 15px;
+}
+
+.Days_top{
+  display: flex;
+  justify-content: space-between;
+  color: rgb(100,100,100);
+}
+
+.Days_main {
+  display: flex;
+  
+  
+}
+
+.Days_top > div,
+
+.Days_bottom > div {
+  flex: 1;
+  text-align: center;
+}
+
+.Days_bottom{
+  margin-top : 15px;
+}
+
+.Days_main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  color: rgb(30,30,30);
+}
+
+.Days_main > div {
+  width: calc(100% / 7);
+  text-align: center;
+  padding: 4px 0;
+}
+
+
+.Days_bottom > img{
+object-fit: contain;
+width: 20px;
+}
+
+.Days_main .today {
+  padding : 4px 6px;
+  background-color: #00664F;
+  border-radius: 14px;
+  color : white;
+  
+}
