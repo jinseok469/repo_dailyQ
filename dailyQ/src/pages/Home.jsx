@@ -1,4 +1,5 @@
 import "./Home.css";
+import Footer from "../components/Footer";
 import { useState } from "react";
 import { getDays } from "../utils/getDays";
 import { getMonth } from "../utils/getMonth";
@@ -6,10 +7,16 @@ import Button from "../components/Button";
 import Days from "../components/Days";
 import quizbutton from "../assets/quizbutton.png";
 import rankingbutton from "../assets/rankingbutton.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
+  const [state, setState] = useState(1);
   const [date, setDate] = useState(new Date());
   const [radio, setRadio] = useState("week");
+  const location = useLocation();
+
+  const nav = useNavigate();
 
   return (
     <div className="Home">
@@ -41,7 +48,11 @@ const Home = () => {
         <Days mode={radio} date={date} />
 
         <div className="HomeMain_Quizbutton">
-          <button>
+          <button
+            onClick={() =>
+              state > 0 ? nav("/quizcomplete") : nav("/quizwaiting")
+            }
+          >
             <img src={quizbutton}></img>
           </button>
         </div>
@@ -52,6 +63,9 @@ const Home = () => {
           </button>
         </div>
       </section>
+      <div>
+        <Footer location={location}></Footer>
+      </div>
     </div>
   );
 };

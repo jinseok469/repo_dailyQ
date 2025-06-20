@@ -1,0 +1,48 @@
+.HomeFooter {
+  background-color: white;
+ position: fixed;        /* 화면에 고정 */
+  bottom: 0;              /* 화면 아래에 위치 */
+  left: 0;
+  width: 100%;
+  height: 80px;           /* 높이 적당히 조절 */
+  background-color: #fff; /* 배경색 */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ccc; /* 위쪽 테두리로 구분감 */
+  z-index: 1000;         
+   box-shadow: rgba(0, 0, 0, 0.1) 0px -4px 20px; /* (박스 그림자 ) */
+}
+
+.HomeFooter_button{
+   display: flex;
+   justify-content: space-between;
+  width: 80%;
+   height: 68%;
+}
+.HomeFooter_button button{
+ 
+  background-color: white;
+  border : 2px solid transparent;
+  cursor: pointer;
+}
+.HomeFooter_button button:hover {
+  border : 2px solid rgb(20,20,20);
+  border-radius: 5px;
+}
+
+
+.HomeFooter button img{
+ width: 35px;
+ height: 30px;
+}
+
+.active{
+  border-radius: 30px;
+ 
+  background-color: #00664F !important;
+}
+
+.active img{
+ filter: brightness(0) invert(1);
+}
