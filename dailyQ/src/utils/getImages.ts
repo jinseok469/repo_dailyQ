@@ -3,7 +3,7 @@ import mushroom from "../assets/mushroom.png";
 import suninjang from "../assets/suninjang.png";
 import flower from "../assets/flower.png";
 
-export function getImages(value){
+export function getImages(value:number){
   if(value === 1){
     return tree;
   }

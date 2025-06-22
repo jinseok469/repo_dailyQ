@@ -73,8 +73,14 @@ display: flex;
 }
 .HomeMain_Quizbutton button {
   background-color: white;
-  border : 2px solid transparent;
+  border : 5px solid transparent;
  width: fit-content;
+ padding: 0px 0px;
+}
+
+.HomeMain_Quizbutton button:hover{
+  border: 5px solid #00664F;
+  border-radius: 10px;
 }
 
 .HomeMain_Quizbutton img{
@@ -86,8 +92,13 @@ display: flex;
 }
 .HomeMain_RankButton button {
   background-color: white;
-  border : 2px solid transparent;
+  border : 5px solid transparent;
   width: fit-content;
+}
+
+.HomeMain_RankButton button:hover{
+    border:5px solid #00664F;
+  border-radius: 10px;
 }
 
 .HomeMain_RankButton h3{

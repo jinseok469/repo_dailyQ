@@ -7,17 +7,98 @@ import mushroom from "../assets/mushroom.png";
 import tree from "../assets/tree.png";
 import notice from "../assets/notice.png";
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Signup2 = () => {
-  const [imgClick, setImgClick] = useState(0);
+  const nav = useNavigate();
+  const [imgClick, setImgClick] = useState(1);
+  const [name, setName] = useState("");
+  const refs = {
+    name: useRef(null),
+    selectMain: useRef(null),
+    selectSub: useRef(null),
+  };
+  const [selectMain, setSelectMain] = useState(null);
+  const [selectSub, setSelectSub] = useState(null);
   const [selectOption, setSelectOption] = useState([
     {
-      value: 1,
-      label: "서울시",
+      value: null,
+      label: null,
     },
-    { value: 2, label: "경기도" },
   ]);
+  const [selectOptionSub, setSelectOptionSub] = useState([
+    {
+      value: null,
+      label: null,
+    },
+  ]);
+  const [selectRegion, setSelectRegion] = useState(0);
+  useEffect(() => {
+    const region = async () => {
+      try {
+        const res = await axios.get("http://3.38.212.8:8000/region");
 
+        const options = res.data.map((region) => ({
+          value: region.id, // Select 내부에서 value로 사용됨
+          label: region.name, // 보여지는 이름
+        }));
+        setSelectOption(options);
+      } catch (err) {}
+    };
+    region();
+  }, []);
+
+  useEffect(() => {
+    const regionSub = async () => {
+      try {
+        const res = await axios.get(
+          `http://3.38.212.8:8000/region/${selectRegion}/sub-regions`
+        );
+        const options = res.data.map((region) => ({
+          value: region.id,
+          label: region.name,
+        }));
+        setSelectOptionSub(options);
+      } catch (err) {}
+    };
+    regionSub();
+  }, [selectRegion]);
+
+  const signup2 = async () => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const newItem = {
+      nickname: name,
+      pet_type: imgClick,
+      region_id: selectSub?.value,
+    };
+    if (name === "" || /[^a-zA-Z가-힣]/.test(name)) {
+      refs.name.current.focus();
+      return;
+    } else if (!selectMain) {
+      alert("지역을 선택해주세요 !");
+      return;
+    } else if (!selectSub) {
+      alert("지역을 선택해주세요 !");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        "http://3.38.212.8:8000/account/onboarding",
+        newItem,
+        {
+          headers: {
+            "access-token": `Bearer ${token}`,
+          },
+        }
+      );
+      nav("/home");
+    } catch (err) {
+      console.log("🔥 서버 응답:", err.response?.data);
+    }
+  };
   return (
     <div className="Signup2">
       <Header></Header>
@@ -62,7 +143,13 @@ const Signup2 = () => {
         <section className="section3">
           <div className="section3_header_text">나의 반려식의 이름은?</div>
           <div className="section3_main_input">
-            <input type="text"></input>
+            <input
+              ref={refs.name}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              maxLength={5}
+            ></input>
           </div>
           <div className="section3_notice">
             <div className="section3_notice1">
@@ -81,8 +168,16 @@ const Signup2 = () => {
           <div className="section4_select">
             <div className="select_wrapper">
               <Select
+                ref={refs.selectMain}
                 isSearchable={false} // 읽기전용
                 options={selectOption}
+                value={selectMain}
+                onChange={(selectOption) => {
+                  setSelectRegion(selectOption.value),
+                    setSelectMain(selectOption);
+                  setSelectSub(null);
+                  setSelectOptionSub([]);
+                }}
                 placeholder={"경기도"}
                 styles={{
                   control: (base, state) => ({
@@ -126,8 +221,12 @@ const Signup2 = () => {
             </div>
             <div className="select_wrapper">
               <Select
+                ref={refs.selectSub}
+                value={selectSub}
                 isSearchable={false}
                 placeholder={"남양주시"}
+                options={selectOptionSub}
+                onChange={(option) => setSelectSub(option)}
                 styles={{
                   control: (base, state) => ({
                     ...base,
@@ -178,6 +277,7 @@ const Signup2 = () => {
         </section>
         <section className="section5">
           <Button
+            onClick={signup2}
             className={"section5_button"}
             text={"서비스 이용하러 가기"}
           ></Button>

@@ -4,10 +4,19 @@ import footerChat from "../assets/footerChat.png";
 import footerPerson from "../assets/footerPerson.png";
 import footerHome from "../assets/footerHome.png";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import type { Location } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Footer = ({ location }) => {
+
+
+type FooterType = {
+  location : Location;
+}
+
+
+const Footer = ({ location }:FooterType) => {
   const [state, setState] = useState("");
+  const nav = useNavigate();
   useEffect(() => {
     if (location.pathname === "/home") {
       setState("home");
@@ -27,13 +36,13 @@ const Footer = ({ location }) => {
         <button className={state === "rank" ? "active" : ""}>
           <img src={footerRank}></img>
         </button>
-        <button className={state === "home" ? "active" : ""}>
+        <button onClick={()=>nav("/home")} className={state === "home" ? "active" : ""}>
           <img src={footerHome}></img>
         </button>
         <button className={state === "chat" ? "active" : ""}>
           <img src={footerChat}></img>
         </button>
-        <button className={state === "person" ? "active" : ""}>
+        <button onClick={()=>nav("/person")} className={state === "person" ? "active" : ""}>
           <img src={footerPerson}></img>
         </button>
       </div>

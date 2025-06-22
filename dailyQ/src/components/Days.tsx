@@ -2,10 +2,19 @@ import "./Days.css";
 import { getPercentImage } from "../utils/getPercentImage";
 import { useState } from "react";
 
-const Days = ({ mode, date }) => {
+
+type DaysType = {
+  mode: any,
+  date : any,
+  monthlyExam : any
+}
+
+
+
+const Days = ({ mode, date, monthlyExam }:DaysType) => {
   const [state, setState] = useState(new Date().getDate());
   const today = date;
-  const getStartOfWeek = (date) => {
+  const getStartOfWeek = (date:any) => {
     const day = date.getDay(); // 0(일) ~ 6(토)
     const diff = day === 0 ? -6 : 1 - day; // 일요일은 -6, 나머지는 1 - day
     const monday = new Date(date);
@@ -14,7 +23,7 @@ const Days = ({ mode, date }) => {
   };
 
   // 월~일 날짜 배열 생성
-  let dates = [];
+  let dates:any = [];
   if (mode === "week") {
     const startOfWeek = getStartOfWeek(today);
     dates = Array.from({ length: 7 }, (_, i) => {
@@ -54,20 +63,29 @@ const Days = ({ mode, date }) => {
         ))}
       </div>
       <div className="Days_main">
-        {dates.map((q, i) => (
-          <div key={i}>
-            {q ? (
-              <>
-                <span className={state === q.getDate() ? "today" : ""}>
-                  {q.getDate()}
-                </span>
-                <div className="Days_bottom">
-                  <img src={getPercentImage(100)} alt="" />
-                </div>
-              </>
-            ) : null}
-          </div>
-        ))}
+        {dates.map((q:any, i:number) => {
+          if (!q) return <div key={i}></div>; // 빈 칸 처리
+
+          // 날짜 포맷을 서버에서 받은 형식과 맞추기 (yyyy-mm-dd)
+          const dateStr = `${q.getFullYear()}-${String(
+            q.getMonth() + 1
+          ).padStart(2, "0")}-${String(q.getDate()).padStart(2, "0")}`;
+
+          // monthlyExam에서 해당 날짜의 이미지 찾기
+          const exam = monthlyExam.find((item:any) => item.date === dateStr);
+          const imageUrl = exam?.image;
+
+          return (
+            <div key={i}>
+              <span className={state === q.getDate() ? "today" : ""}>
+                {q.getDate()}
+              </span>
+              <div className="Days_bottom">
+                {imageUrl && <img src={imageUrl} alt="exam result" />}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

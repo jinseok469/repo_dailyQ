@@ -2,6 +2,36 @@
   width: 100%;
 
 }
+.Signup button {
+  cursor: pointer;
+}
+.notice{
+  display: none;
+}
+.notice_done{
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+  font-weight: 600;
+  align-items: center;
+}
+.notice_done img{
+  width: 20px;
+  margin-right: 10px;
+}
+.notice_password{
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+  font-weight: 600;
+  align-items: center;
+}
+
+.notice_password img{
+   width: 20px;
+  margin-right: 10px;
+}
+
 
 
 .Signup_header_button{

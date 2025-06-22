@@ -1,4 +1,4 @@
-export const getMonth =(month) =>{
+export const getMonth =(month:number) : string | undefined =>{
   if(month === 1){
     return "Jan"
   }

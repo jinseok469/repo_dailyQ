@@ -8,15 +8,77 @@ import Button from "../components/Button";
 import Days from "../components/Days";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import axios from "axios";
 const Quizcomplete = () => {
-  const [state, setState] = useState(1);
+  const [state, setState] = useState({
+    today_exam: {
+      correct: {
+        count: null,
+        questions: [
+          {
+            answer: null,
+            difficult: null,
+            explanation: null,
+            question: null,
+            select_1: null,
+            select_2: null,
+            select_3: null,
+            select_4: null,
+            subject: null,
+            user_select: null,
+          },
+        ],
+      },
+      incorrect: {
+        count: null,
+        questions: [
+          {
+            answer: null,
+            difficult: null,
+            explanation: null,
+            question: null,
+            select_1: null,
+            select_2: null,
+            select_3: null,
+            select_4: null,
+            subject: null,
+            user_select: null,
+          },
+        ],
+      },
+    },
+  });
+
   const [date, setDate] = useState(new Date());
   const [radio, setRadio] = useState("week");
   const [quizRadio, setQuizRadio] = useState("fail");
   const location = useLocation();
-
+  const [monthlyExam, setMonthlyExam] = useState([]);
   const nav = useNavigate();
+  const todayDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const getQuiz = async () => {
+      try {
+        const res = await axios.get(
+          `http://3.38.212.8:8000/user/monthly?date=${todayDate}`,
+          {
+            headers: {
+              "access-token": `Bearer ${token}`,
+            },
+          }
+        );
+        setState(res.data.today_exam);
+        setMonthlyExam(res.data.monthly_exam);
+      } catch (err) {
+        console.log(err?.message);
+      }
+    };
+    getQuiz();
+  }, [todayDate]);
 
   return (
     <div className="Home">
@@ -46,7 +108,7 @@ const Quizcomplete = () => {
       </section>
       <section className="HomeMain">
         <div>
-          <Days mode={radio} date={date}></Days>
+          <Days mode={radio} date={date} monthlyExam={monthlyExam}></Days>
         </div>
         <div className="QuizMain_button">
           <Button
@@ -60,9 +122,10 @@ const Quizcomplete = () => {
             onClick={() => setQuizRadio("success")}
           ></Button>
         </div>
-        <div className="QuizMain">
+
+        <div className={`QuizMain_fail_${quizRadio}`}>
           <div className="QuizMain_headerText">
-            <span>총 2문제</span>
+            <span>총 {state.incorrect?.count}문제</span>
             <span
               className={`headerText_right${
                 quizRadio === "success" ? "_current" : ""
@@ -79,29 +142,109 @@ const Quizcomplete = () => {
               <span className="right_right"> ●</span> 정답
             </span>
           </div>
-          <div className="QuizMain_question">
-            <div>
-              <Button className={"badge"} text={"상식"}></Button>
-              <Button className={"badge"} text={"중상"}></Button>
-            </div>
-            <div className="question_header">
-              다음 중 두개의 대륙에 걸쳐 있는 나라가 아닌 것은?
-            </div>
-            <div className="question_button">
-              <div className="question_button_top">
-                <button>러시아</button>
-                <button>터키</button>
+          {state.incorrect?.questions?.map((q, i) => (
+            <div className="QuizMain_question" key={i}>
+              <div>
+                <Button className={"badge"} text={q.subject}></Button>
+                <Button className={"badge"} text={q.difficult}></Button>
               </div>
-              <div className="question_button_bottom">
-                <button>이집트</button>
-                <button>아르헨티나</button>
+              <div className="question_header">{q.question}</div>
+              <div className="question_button">
+                <div className="question_button_top">
+                  <button
+                    className={`${1 === q.answer ? "incorrect " : ""}${
+                      1 === q.user_select ? "userSelect" : ""
+                    }
+                  `}
+                  >
+                    {q.select_1}
+                  </button>
+                  <button
+                    className={`${2 === q.answer ? "incorrect " : ""}${
+                      2 === q.user_select ? "userSelect" : ""
+                    }
+                  `}
+                  >
+                    {q.select_2}
+                  </button>
+                </div>
+                <div className="question_button_bottom">
+                  <button
+                    className={`${3 === q.answer ? "incorrect " : ""}${
+                      3 === q.user_select ? "userSelect" : ""
+                    }
+                  `}
+                  >
+                    {q.select_3}
+                  </button>
+                  <button
+                    className={`${4 === q.answer ? "incorrect " : ""}${
+                      4 === q.user_select ? "userSelect" : ""
+                    }
+                  `}
+                  >
+                    {q.select_4}
+                  </button>
+                </div>
+              </div>
+              <div className="question_footer">
+                <div className="question_footer_header">🔍 해설</div>
+                <div>{q.explanation}</div>
               </div>
             </div>
-            <div className="question_footer">
-              <div className="question_footer_header">🔍 해설</div>
-              <div>sdf</div>
-            </div>
+          ))}
+        </div>
+
+        <div className={`QuizMain_success_${quizRadio}`}>
+          <div className="QuizMain_headerText">
+            <span>총 {state.correct?.count}문제</span>
+            <span
+              className={`headerText_right${
+                quizRadio === "success" ? "_current" : ""
+              }`}
+            >
+              <span className="right_left">●</span> 정답
+              <span className="right_right"> ●</span> 선택
+            </span>
+            <span
+              className={`headerText_right${
+                quizRadio === "success" ? "" : "_current"
+              }`}
+            >
+              <span className="right_right"> ●</span> 정답
+            </span>
           </div>
+          {state.correct?.questions?.map((q, i) => (
+            <div className="QuizMain_question" key={i}>
+              <div>
+                <Button className={"badge"} text={q.subject}></Button>
+                <Button className={"badge"} text={q.difficult}></Button>
+              </div>
+              <div className="question_header">{q.question}</div>
+              <div className="question_button">
+                <div className="question_button_top">
+                  <button className={1 === q.answer ? "correct" : ""}>
+                    {q.select_1}
+                  </button>
+                  <button className={2 === q.answer ? "correct" : ""}>
+                    {q.select_2}
+                  </button>
+                </div>
+                <div className="question_button_bottom">
+                  <button className={3 === q.answer ? "correct" : ""}>
+                    {q.select_3}
+                  </button>
+                  <button className={4 === q.answer ? "correct" : ""}>
+                    {q.select_4}
+                  </button>
+                </div>
+              </div>
+              <div className="question_footer">
+                <div className="question_footer_header">🔍 해설</div>
+                <div>{q.explanation}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </div>

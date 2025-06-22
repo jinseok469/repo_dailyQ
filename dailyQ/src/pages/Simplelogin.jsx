@@ -1,32 +1,27 @@
 import "./Signup.css";
 import Header from "../components/Header";
 import Button from "../components/Button";
+import notice from "../assets/notice.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import notice from "../assets/notice.png";
 import axios from "axios";
 
-const Signup = () => {
+const Simplelogin = () => {
   useEffect(() => {
     localStorage.clear();
   }, []);
-  const [value, setValue] = useState({
-    done: "",
-    password: "",
-  });
+  const [diff, setDiff] = useState("");
   const refs = {
     user_id: useRef(null),
     password: useRef(null),
-    passwordck: useRef(null),
   };
   const [state, setState] = useState({
     user_id: "",
     password: "",
-    passwordck: "",
   });
   const nav = useNavigate();
 
-  const signup = async () => {
+  const loginSubmit = async () => {
     const newItem = {
       user_id: state.user_id,
       password: state.password,
@@ -34,43 +29,44 @@ const Signup = () => {
     if (state.user_id === "") {
       refs.user_id.current.focus();
       return;
-    } else if (state.password === "") {
+    }
+    if (state.password === "") {
       refs.password.current.focus();
       return;
-    } else if (state.passwordck === "") {
-      refs.passwordck.current.focus();
-      return;
     }
-    if (state.password !== state.passwordck) {
-      setValue({
-        done: "",
-        password: "_password",
-      });
-      refs.passwordck.current.focus();
-      return;
-    }
+
     try {
       const res = await axios.post(
-        "http://3.38.212.8:8000/account/sign-up",
+        "http://3.38.212.8:8000/account/sign-in",
         newItem
       );
+
       if (res.data.access_token) {
-        localStorage.setItem("token", res.data.access_token);
-        nav("/signup2");
+        if (res.data.is_signup_done) {
+          localStorage.setItem("token", res.data.access_token);
+          console.log(localStorage.getItem("token"));
+          nav("/home");
+        } else {
+          localStorage.setItem("token", res.data.access_token);
+          nav("/signup2");
+        }
       } else {
-        console.log("토큰 미발급");
+        setDiff("_done");
+        setState({
+          user_id: "",
+          password: "",
+        });
       }
     } catch {
-      console.log("아이디 중복");
-      setValue({
-        done: "_done",
+      console.log("로그인 실패");
+      setDiff("_done");
+      setState({
+        user_id: "",
         password: "",
       });
       refs.user_id.current.focus();
-      return;
     }
   };
-
   return (
     <div className="Signup">
       <Header></Header>
@@ -81,59 +77,43 @@ const Signup = () => {
       ></Button>
       <div className="Signup_main">
         <input
+          ref={refs.user_id}
+          value={state.user_id}
           onChange={(e) =>
             setState({
               ...state,
               user_id: e.target.value,
             })
           }
-          value={state.user_id}
-          ref={refs.user_id}
           type="text"
           placeholder="아이디를 입력하세요."
           maxLength={12}
         />
         <input
+          value={state.password}
           onChange={(e) =>
             setState({
               ...state,
               password: e.target.value,
             })
           }
-          value={state.password}
           ref={refs.password}
           type="password"
           placeholder="비밀번호를 입력하세요."
-        />
-        <input
-          onKeyDown={(e) => e.key === "Enter" && signup()}
-          ref={refs.passwordck}
-          value={state.passwordck}
-          onChange={(e) =>
-            setState({
-              ...state,
-              passwordck: e.target.value,
-            })
-          }
-          type="password"
-          placeholder="비밀번호를 입력하세요."
+          onKeyDown={(e) => e.key === "Enter" && loginSubmit()}
         />
         <Button
-          onClick={signup}
-          text={"회원가입"}
+          text={"로그인"}
           className={"Signup_main_button"}
+          onClick={loginSubmit}
         ></Button>
-        <div className={`notice${value.done}`}>
-          <img src={notice} alt="" />
-          <span>이미 사용중인 아이디 입니다.</span>
-        </div>
-        <div className={`notice${value.password}`}>
-          <img src={notice} alt="" />
-          <span>비밀번호가 서로 달라요</span>
+        <div className={`notice${diff}`}>
+          <img src={notice}></img>
+          <span>아이디 또는 비밀번호가 일치하지 않습니다.</span>
         </div>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Simplelogin;

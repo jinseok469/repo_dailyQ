@@ -3,7 +3,7 @@ import twentyfive from "../assets/twentyfive.png";
 import fifty from "../assets/fifty.png";
 import seventyfive from "../assets/seventyfive.png";
 
-export const getPercentImage = (a) =>{
+export const getPercentImage = (a : number) : string | undefined =>{
   if( a === 0 || a === null){
     return zero;
   }

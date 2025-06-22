@@ -3,8 +3,10 @@ import Button from "../components/Button";
 import google_button from "./../assets/google_button.png";
 import dailyq_mark from "./../assets/dailyq_mark.png";
 import login_image from "./../assets/login_image.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const nav = useNavigate();
   return (
     <div className="Login">
       <section className="Login_img">
@@ -25,10 +27,15 @@ const Login = () => {
             <img src={google_button} alt="" />
           </button>
           <Button
+            onClick={() => nav("/simplelogin")}
             className={"nomal_button"}
             text={"일반 로그인으로 이용하기"}
           ></Button>
-          <Button className={"nomal_button"} text={"회원가입"}></Button>
+          <Button
+            onClick={() => nav("/signup")}
+            className={"nomal_button"}
+            text={"회원가입"}
+          ></Button>
         </div>
       </section>
     </div>

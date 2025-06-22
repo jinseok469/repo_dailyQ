@@ -11,6 +11,7 @@
 
 
 .Signup2_main{
+  background-color: white;
   padding: 30px 50px;
   display: flex;
   flex-direction: column;
@@ -155,6 +156,7 @@ border:2px solid #00664F;
 }
 
 .section4_footer {
+  background-color: white;
   display: flex;
   align-items: center;
   margin: 20px 10px;
@@ -172,6 +174,7 @@ border:2px solid #00664F;
 }
 
 .section5{
+  background-color: white;
   display: flex;
   justify-content: center;
 }

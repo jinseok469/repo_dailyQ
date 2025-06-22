@@ -9,14 +9,46 @@ import quizbutton from "../assets/quizbutton.png";
 import rankingbutton from "../assets/rankingbutton.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios, { AxiosError } from "axios";
 
 const Home = () => {
-  const [state, setState] = useState(1);
+  const [state, setState] = useState(null);
   const [date, setDate] = useState(new Date());
   const [radio, setRadio] = useState("week");
+  const [region, setRegion] = useState("");
+  const [monthlyExam, setMonthlyExam] = useState([]);
   const location = useLocation();
 
   const nav = useNavigate();
+  const todayDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
+  console.log("state = " + state);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const getQuiz = async () => {
+      try {
+        const res = await axios.get(
+          `http://3.38.212.8:8000/user/monthly?date=${todayDate}`,
+          {
+            headers: {
+              "access-token": `Bearer ${token}`,
+            },
+          }
+        );
+        setState(
+          res.data.today_exam.correct.count +
+            res.data.today_exam.incorrect.count
+        );
+        setMonthlyExam(res.data.monthly_exam);
+        setRegion(res.data.region);
+      } catch (err) {
+        const error = err as AxiosError;
+        console.log(error.response?.data);
+      }
+    };
+    getQuiz();
+  }, [todayDate]);
 
   return (
     <div className="Home">
@@ -45,19 +77,19 @@ const Home = () => {
         </div>
       </section>
       <section className="HomeMain">
-        <Days mode={radio} date={date} />
+        <Days mode={radio} date={date} monthlyExam={monthlyExam} />
 
         <div className="HomeMain_Quizbutton">
           <button
             onClick={() =>
-              state > 0 ? nav("/quizcomplete") : nav("/quizwaiting")
+              state === 10 ? nav("/quizcomplete") : nav("/quizwaiting")
             }
           >
             <img src={quizbutton}></img>
           </button>
         </div>
         <div className="HomeMain_RankButton">
-          <h3>현재 남양주에서 내 순위는?</h3>
+          <h3>현재 {region}에서 내 순위는?</h3>
           <button>
             <img src={rankingbutton}></img>
           </button>

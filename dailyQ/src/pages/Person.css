@@ -1,0 +1,348 @@
+.Person{
+  background-color: #E9F5EF;
+  width: 100%;
+  height: 100%;
+  padding: 30px 30px;
+  padding-bottom: 150px;
+}
+
+.Person button{
+  cursor: pointer;
+}
+.Person_header{
+  display: flex;
+  justify-content: center;
+    margin-bottom:10px;
+}
+
+.Person_header_img{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Person_header_img img{
+
+  width: 150px;
+}
+
+
+.Person_header img {
+
+  width: 200px;
+ 
+}
+
+.Person_header_text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:20px;
+}
+
+.text_badge{
+  border:none;
+  background-color: #00664F;
+  color:white;
+  padding:2px 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+.badge_text{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.Person_header_subText{
+  font-size:12px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.Pesron_bar{
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+
+
+.bar_text{
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  font-weight: 600;
+  margin-top:5px;
+}
+
+.Person_total{
+  margin-top:50px;
+  padding:0px 10px;
+}
+
+.Person_total_top{
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:20px 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+.top_number{
+  font-weight: 700;
+  font-size: 30px;
+  color:#00664F;
+}
+
+.top_text{
+  font-weight: 600;
+  font-size: 20px;
+}
+.Person_total_bottom{
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:20px 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  margin-top:20px;
+}
+
+.bottom_number{
+  font-weight: 700;
+  font-size: 30px;
+  color:#00664F;
+}
+
+.bottom_text{
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.Person_average{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:10px 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  margin-top:20px;
+  gap:10px;
+}
+
+.average_main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+}
+
+.percent_text{
+  font-size: 25px;
+  color:#00664F;
+}
+
+
+
+.average_chart{
+  width: 150px;
+  height: 150px;
+ position: relative;
+}
+
+.average_text{
+  font-weight: 600;
+  line-height: 1.6;
+  font-size:17px;
+}
+.chart{
+   object-fit: contain;
+}
+
+.chart_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-weight: 500;
+   text-align: center;
+}
+
+.chart_inner_text{
+  color:#00664F;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.average_footer{
+  display: flex;
+  font-size: 11px;
+  font-weight: 600;
+  gap: 5px;
+}
+.average_footer span{
+  align-items: center;
+  display: flex;
+  gap:4px;
+}
+.Person_bar_header{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Person_bar_header img{
+  width: 50px;
+  transform: translateX(20px);
+}
+
+.average_footer img{
+  width: 15px;
+  margin-left:20px;
+}
+
+.Person_average2{
+   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:10px 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  margin-top:20px;
+  gap:10px;
+}
+
+.Person_average2_top{
+   display: flex;
+ font-size: 13px;
+ font-weight: 600;
+ justify-content: flex-end ;
+ width: 100%;
+}
+.Person_average3{
+   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:10px 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  margin-top:20px;
+  gap:10px;
+}
+
+.Person_average3_top{
+  display: flex;
+ font-size: 13px;
+ font-weight: 600;
+ justify-content: flex-end ;
+ width: 100%;
+}
+
+.Person_average3_top span{
+  display: flex;
+  gap:3px;
+}
+.Person_average2_top span{
+  display: flex;
+  gap:3px;
+}
+.badnews_ span{
+  font-size: 25px;
+  color: #DF7B7B;
+}
+
+.goodnews_ span{
+  font-size: 25px;
+  color: #00664F;
+}
+.badnews2_ span{
+  font-size: 25px;
+  color: #DF7B7B;
+}
+
+.goodnews2_ span{
+  font-size: 25px;
+  color: #00664F;
+}
+
+.Person_average2_footer{
+  font-size: 13px;
+  font-weight: 700;
+  margin-top:20px;
+  padding-bottom: 10px;
+}
+.badnews_good{
+  display: none;
+}
+.goodnews_bad{
+  display: none;
+}
+.badnews2_good{
+  display: none;
+}
+.goodnews2_bad{
+  display: none;
+}
+.Person_average3_footer{
+  font-size: 13px;
+  font-weight: 700;
+  margin-top:20px;
+  padding-bottom: 10px;
+}
+
+.Person_average3_top img{
+  width: 15px;
+  margin-left: 20px;
+}
+.Person_average2_top img{
+  width: 15px;
+  margin-left: 20px;
+}
+
+.Person_footer_top{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color:#00664F;
+  font-weight: 700;
+  margin-top:40px;
+  width: fit-content;
+}
+
+.Person_footer_top img{
+  margin-top:10px;
+  width: 100%;
+  object-fit: contain;
+
+}
+
+.Person_footer_footer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color:#00664F;
+  font-weight: 700;
+  margin-top:40px;
+  width: fit-content;
+}
+
+.Person_footer_footer img{
+  margin-top:10px;
+  width: 100%;
+  object-fit: contain;
+
+}
