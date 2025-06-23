@@ -1,0 +1,96 @@
+.Rank{
+  background-color: #E9F5EF;
+  width: 100%;
+  height: 100%;
+  padding: 30px 30px;
+  padding-bottom: 150px;
+}
+
+.Rank_header{
+  display: flex;  
+  justify-content: center;
+}
+
+.Rank_header img{
+  width: 200px;
+}
+.myRank_text{
+  margin-top:40px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.myRank_container{
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 25px;
+  background-color: white;
+  box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.4);
+  border-radius: 20px;
+  height: 110px;
+}
+
+.rank{
+  font-size: 28px;
+  font-weight: 700;
+}
+.container_top{
+  display: flex;
+  align-items: center;
+  margin-bottom:5px;
+  gap:10px;
+}
+
+.top_text{
+  font-size: 23px;
+  font-weight: 700;
+
+
+}
+
+.top_button{
+  border:none;
+  background-color: #00664F;
+  color:white;
+  border-radius: 10px;
+  font-size: 10px;
+  padding:4px 8px;
+}
+.img{
+  width: fit-content;
+}
+
+.myRank_container img{
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.container_bottom{
+  display: flex;
+  justify-content: center;  
+  gap:12px;
+  color:rgb(50,50,50);
+  font-size:13px;
+}
+
+.Rank_regionRank{
+  margin-top:60px;
+}
+
+.regionRank_text{
+  display: flex;
+  justify-content: center;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.regionRank_subText{
+  display: flex;
+  justify-content: flex-end;
+  margin-top:15px;
+  font-size : 10px;
+  color: rgb(150,150,150);
+}

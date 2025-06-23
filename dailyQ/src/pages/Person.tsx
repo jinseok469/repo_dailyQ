@@ -329,13 +329,13 @@ const options = {
             </span>
           </div>
 
-          <div>
+          <div className="Person_average2_canvers">
             <Radar data={datas} options={option} />
           </div>
           <div className="Person_average2_footer">
             <div className={`goodnews_${news.good}`}>{state?.subject_analysis?.good?.name} 영역은 평균보다  <span> {state?.subject_analysis?.good?.rate}</span>% 앞서가고 있어요 👍</div>
             <div className={`badnews_${news.bad}`} >{state?.subject_analysis.bad.name} 영역은 평균보다
-              <span>{state?.subject_analysis.bad.rate}</span>% 뒤쳐지고 있어요 💦
+              <span> {state?.subject_analysis.bad.rate}</span>% 뒤쳐지고 있어요 💦
             </div>
           </div>
         </div>
@@ -350,13 +350,13 @@ const options = {
               전체 {date.getMonth() + 1}월 평균
             </span>
           </div>
-          <div>
+          <div className="Person_average3_canvers">
             <Radar data={datasDiff} options={option} />
           </div>
           <div className="Person_average3_footer">
            <div className={`goodnews2_${news2.good}`}>{state?.difficult_analysis?.good?.name} 영역은 평균보다  <span> {state?.difficult_analysis?.good?.rate}</span>% 앞서가고 있어요 👍</div>
-            <div className={`badnews2_${news2.bad}`} >{state?.difficult_analysis.bad.name} 영역은 평균보다
-              <span>{state?.difficult_analysis.bad.rate}</span>% 뒤쳐지고 있어요 💦
+            <div className={`badnews2_${news2.bad}`} >{state?.difficult_analysis?.bad?.name} 영역은 평균보다
+              <span>{state?.difficult_analysis?.bad?.rate}</span>% 뒤쳐지고 있어요 💦
             </div>
           </div>
         </div>

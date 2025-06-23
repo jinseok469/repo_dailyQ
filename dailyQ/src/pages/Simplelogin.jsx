@@ -44,7 +44,6 @@ const Simplelogin = () => {
       if (res.data.access_token) {
         if (res.data.is_signup_done) {
           localStorage.setItem("token", res.data.access_token);
-          console.log(localStorage.getItem("token"));
           nav("/home");
         } else {
           localStorage.setItem("token", res.data.access_token);

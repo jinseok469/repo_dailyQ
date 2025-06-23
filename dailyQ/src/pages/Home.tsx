@@ -11,19 +11,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios, { AxiosError } from "axios";
 
+
+
 const Home = () => {
-  const [state, setState] = useState(null);
-  const [date, setDate] = useState(new Date());
-  const [radio, setRadio] = useState("week");
-  const [region, setRegion] = useState("");
-  const [monthlyExam, setMonthlyExam] = useState([]);
+  const [state, setState] = useState<any>(null);
+  const [date, setDate] = useState<any>(new Date());
+  const [radio, setRadio] = useState<string>("week");
+  const [region, setRegion] = useState<string>("");
+  const [monthlyExam, setMonthlyExam] = useState<any>([]);
   const location = useLocation();
 
   const nav = useNavigate();
   const todayDate = `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()}`;
-  console.log("state = " + state);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const getQuiz = async () => {
@@ -36,15 +37,16 @@ const Home = () => {
             },
           }
         );
+
         setState(
-          res.data.today_exam.correct.count +
-            res.data.today_exam.incorrect.count
+          res?.data?.today_exam?.correct?.count +
+            res?.data?.today_exam?.incorrect?.count
         );
-        setMonthlyExam(res.data.monthly_exam);
-        setRegion(res.data.region);
+        setMonthlyExam(res?.data?.monthly_exam);
+        setRegion(res?.data?.region);
       } catch (err) {
         const error = err as AxiosError;
-        console.log(error.response?.data);
+        console.log(error?.response?.data);
       }
     };
     getQuiz();
@@ -90,7 +92,7 @@ const Home = () => {
         </div>
         <div className="HomeMain_RankButton">
           <h3>현재 {region}에서 내 순위는?</h3>
-          <button>
+          <button onClick={()=>nav("/rank")}>
             <img src={rankingbutton}></img>
           </button>
         </div>

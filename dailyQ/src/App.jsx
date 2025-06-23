@@ -10,6 +10,7 @@ import { useState } from "react";
 
 function App() {
   const token = localStorage?.getItem("token");
+  const nav = useNavigate();
 
   function ProtectedRoute({ children }) {
     const token = localStorage.getItem("token");
@@ -22,6 +23,7 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route path="" element={<Login></Login>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route
           path="/simplelogin"
