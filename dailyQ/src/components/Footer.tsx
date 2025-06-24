@@ -26,6 +26,10 @@ const Footer = ({ location }:FooterType) => {
       setState("chat");
     } else if (location?.pathname === "/person") {
       setState("person");
+    } else if (location?.pathname === "/chattingroom") {
+      setState("chattingroom");
+    } else if (location?.pathname === "/quizcomplete") {
+      setState("quizcomplete");
     } else {
       setState("");
     }
@@ -36,10 +40,10 @@ const Footer = ({ location }:FooterType) => {
         <button onClick={()=>nav("/rank")} className={state === "rank" ? "active" : ""}>
           <img src={footerRank}></img>
         </button>
-        <button onClick={()=>nav("/home")} className={state === "home" ? "active" : ""}>
+        <button onClick={()=>nav("/home")} className={state === "home" || state === "quizcomplete"? "active" : ""}>
           <img src={footerHome}></img>
         </button>
-        <button onClick={()=>nav("/chat")} className={state === "chat" ? "active" : ""}>
+        <button onClick={()=>nav("/chat")} className={state === "chat" || state === "chattingroom" ? "active" : ""}>
           <img src={footerChat}></img>
         </button>
         <button onClick={()=>nav("/person")} className={state === "person" ? "active" : ""}>

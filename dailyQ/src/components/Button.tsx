@@ -4,7 +4,7 @@ type ButtonType = {
   text : string,
   onClick : () => void,
   className: string,
-  children? : any,
+  children? : any | null,
 }
 
 const Button = ({ text, onClick, className, children }:ButtonType) => {

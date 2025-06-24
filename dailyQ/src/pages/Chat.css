@@ -2,7 +2,8 @@
    width: 100%;
   height: 100%;
   background-color: white;
-  padding-bottom: 150px;
+  position: relative;
+  min-height: 100vh;
 }
 .main_zero_friend{
   display: none;
@@ -30,6 +31,8 @@
 }
 .Chat_main{
   background-color: white;
+  height: calc(100vh - 200px); /* 예시: header 100px + footer 100px */
+  overflow-y: auto;
 }
 
 .main_radio button{
@@ -83,17 +86,20 @@
 .main_chat_container{
   background-color: white;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: flex-start;
-  padding:10px;
+  padding:20px 10px;
   gap:10px;
-  margin-top:20px;
+  margin-top:1px;
   border:2px solid transparent;
   border-bottom: 2px solid rgb(200,200,200);
 }
 
 .main_chat_container img{
- width: 80px;
+ width: 60px;
+ height: 60px;
+ object-fit: contain;
 }
 .containerRight{
   display: flex;
@@ -136,8 +142,8 @@
 .containerMessage{
   display: -webkit-box;
   display: box; /* ✅ 표준 속성 */
-  -webkit-line-clamp: 3;
-  line-clamp: 3; /* ✅ 표준 속성 */
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* ✅ 표준 속성 */
   -webkit-box-orient: vertical;
   box-orient: vertical; /* ✅ 표준 속성 */
   overflow: hidden;
@@ -151,8 +157,16 @@
 .main_friend_friend{
   width: 100%;
   height: 100%;
+  background-color: white;
   padding:30px 30px;
 }
+.friend_container{
+  background-color: white;
+margin-bottom: 100px;
+ overflow-y: auto;
+ max-height: calc(100vh - 250px);
+}
+
 
 .friendSearchBox {
   position: relative;
@@ -168,6 +182,10 @@
   border: 2px solid #00664F;
   box-sizing: border-box;
   font-size: 16px;
+  
+}
+.friendSearchBtn:hover{
+  border:2px solid black;
 }
 
 .friendSearchBtn {
@@ -175,7 +193,7 @@
   right: 0px;
   top: 50%;
   transform: translateY(-50%);
-  border: none;
+  border: 2px solid transparent;
   cursor: pointer;
   background-color: #00664F;
   border-radius: 16px;
@@ -188,6 +206,7 @@
 .main_friend_container{
    background-color: white;
   width: 100%;
+  height: fit-content;
   display: flex;
   align-items: center;
   padding:10px;
@@ -196,13 +215,24 @@
   border:2px solid transparent;
   border-bottom: 2px solid rgb(200,200,200);
 }
+
+.main_friend_container button{
+  cursor: pointer;
+}
+
+.main_friend_container button:hover{
+  border: 2px solid black;
+}
 .friendText{
   font-weight: 700;
   font-size:18px;
+  
 }
 
 .main_friend_container img{
   width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 .chatting{
   border:2px solid transparent;

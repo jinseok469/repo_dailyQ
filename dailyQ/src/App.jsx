@@ -19,6 +19,15 @@ function App() {
     }
     return children;
   }
+  function ProtectedMainapp({ children }) {
+    const isSignupDone = localStorage.getItem("is_signup_done");
+    console.log(isSignupDone);
+    if (!isSignupDone) {
+      alert("정상적이지 않은 접근 입니다, 다시 로그인 해주세요 !");
+      return <Navigate to="/login" replace />;
+    }
+    return children;
+  }
 
   return (
     <div>
@@ -43,7 +52,9 @@ function App() {
           path="/*"
           element={
             <ProtectedRoute>
-              <Mainapp></Mainapp>
+              <ProtectedMainapp>
+                <Mainapp></Mainapp>
+              </ProtectedMainapp>
             </ProtectedRoute>
           }
         ></Route>

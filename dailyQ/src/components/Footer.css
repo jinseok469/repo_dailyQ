@@ -1,12 +1,13 @@
 .HomeFooter {
   background-color: white;
- position: fixed;        /* 화면에 고정 */
+ position: absolute;        /* 화면에 고정 */
   bottom: 0;              /* 화면 아래에 위치 */
   left: 0;
   width: 100%;
   height: 80px;           /* 높이 적당히 조절 */
   background-color: #fff; /* 배경색 */
   display: flex;
+  min-height: 8vh;
   justify-content: space-around;
   align-items: center;
   border-top: 1px solid #ccc; /* 위쪽 테두리로 구분감 */

@@ -6,6 +6,7 @@ import Todayresult from "./Todayresult";
 import Person from "./Person";
 import Rank from "./Rank";
 import Chat from "./Chat";
+import Chattingroom from "./Chattingroom";
 const Mainapp = () => {
   return (
     <Routes>
@@ -19,6 +20,10 @@ const Mainapp = () => {
       <Route path="/person" element={<Person></Person>}></Route>
       <Route path="/rank" element={<Rank></Rank>}></Route>
       <Route path="/chat" element={<Chat></Chat>}></Route>
+      <Route
+        path="/chattingroom"
+        element={<Chattingroom></Chattingroom>}
+      ></Route>
     </Routes>
   );
 };

@@ -247,6 +247,7 @@ const Quizcomplete = () => {
           ))}
         </div>
       </section>
+      <Footer location={location}></Footer>
     </div>
   );
 };

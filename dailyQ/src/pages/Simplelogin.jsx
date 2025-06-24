@@ -40,10 +40,11 @@ const Simplelogin = () => {
         "http://3.38.212.8:8000/account/sign-in",
         newItem
       );
-
+      console.log(res?.data);
       if (res.data.access_token) {
         if (res.data.is_signup_done) {
-          localStorage.setItem("token", res.data.access_token);
+          localStorage.setItem("token", res?.data?.access_token);
+          localStorage.setItem("is_signup_done", res?.data?.is_signup_done);
           nav("/home");
         } else {
           localStorage.setItem("token", res.data.access_token);

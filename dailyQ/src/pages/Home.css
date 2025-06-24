@@ -2,6 +2,8 @@
   background-color: #E9F5EF;
   width: 100%;
   height: 100%;
+  position: relative;
+  min-height: 100vh;
 }
 .Home button {
   cursor: pointer;
@@ -12,7 +14,7 @@
  border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   padding : 30px 20px;
-  padding-bottom : 200px;
+  min-height: 80vh;
 }
 
 .HomeHeader {
@@ -76,15 +78,18 @@ display: flex;
   border : 5px solid transparent;
  width: fit-content;
  padding: 0px 0px;
+height: fit-content;
 }
 
 .HomeMain_Quizbutton button:hover{
   border: 5px solid #00664F;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .HomeMain_Quizbutton img{
   width: 100%;
+  display: block;
+
 }
 
 .HomeMain_RankButton {
@@ -94,11 +99,13 @@ display: flex;
   background-color: white;
   border : 5px solid transparent;
   width: fit-content;
+  height: 100%;
+  padding: 0px 0px;
 }
 
 .HomeMain_RankButton button:hover{
     border:5px solid #00664F;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .HomeMain_RankButton h3{
@@ -107,5 +114,6 @@ display: flex;
 
 .HomeMain_RankButton img{
   width: 100%;
+  display: block;
 }
 

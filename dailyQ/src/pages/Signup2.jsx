@@ -94,6 +94,7 @@ const Signup2 = () => {
           },
         }
       );
+      localStorage.setItem("is_signup_done", true);
       nav("/home");
     } catch (err) {
       console.log("🔥 서버 응답:", err.response?.data);
@@ -204,9 +205,7 @@ const Signup2 = () => {
                     width: "100%",
                     height: "100%",
 
-                    borderRadius: optionState.isFocused ? "10px" : "",
-
-                    borderRadius: "3px",
+                    borderRadius: optionState.isFocused ? "" : "",
                   }),
                 }}
                 components={{
@@ -254,9 +253,7 @@ const Signup2 = () => {
                     width: "100%",
                     height: "100%",
 
-                    borderRadius: optionState.isFocused ? "10px" : "",
-
-                    borderRadius: "3px",
+                    borderRadius: optionState.isFocused ? "" : "",
                   }),
                 }}
                 components={{

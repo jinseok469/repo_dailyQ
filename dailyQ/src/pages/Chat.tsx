@@ -6,6 +6,7 @@ import tree from "../assets/tree.png";
 import { useLocation } from "react-router-dom";
 import { AxiosError } from "axios";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 type ChatType = {
   last_message: string,
@@ -17,12 +18,41 @@ type ChatType = {
     user_id: number
 }
 
+type UserSerchType = {
+    id: number,
+    level: number,
+    name: string,
+    profile: string
+}
+
 
 const Chat = () =>{
   const[active, setActive] = useState<String>("chat");
-  const [state, setState] = useState<number>(1);
+  const [state, setState] = useState<number>(0);
   const [chat, setChat] = useState<ChatType[]|null>(null);
+  const [user,setUser] = useState<UserSerchType[] | null>(null);
+  const [input, setInput] = useState<string>("");
   const location = useLocation();
+  const nav = useNavigate();
+  const getUser = async () =>{
+    const token = localStorage.getItem("token");
+    if(input){
+    try{
+      const res = await axios.get(`http://3.38.212.8:8000/user/search?keyword=${input}`,{
+        headers:{
+          "access-token" : `Bearer ${token}`
+        }
+      })
+      setUser(res?.data);
+      setInput("");
+    }catch(err){
+      const error = err as AxiosError;
+      console.log(error?.response?.data);
+    }
+  }else{
+    return;
+  }
+  }
 
   useEffect(()=>{
     const token = localStorage.getItem("token");
@@ -33,7 +63,8 @@ const Chat = () =>{
               "access-token" : `Bearer ${token}`
             }
           })
-              console.log(res?.data)
+              setState(res?.data?.length);
+              setChat(res?.data);
         }catch(err){
           const error = err as AxiosError
           console.log(error?.response?.data)
@@ -60,29 +91,44 @@ const Chat = () =>{
       </div>}
       {state > 0 &&
       <div className={`main_chat_${active}`}>
-        <button className="main_chat_container">
-          <img src={tree}></img>
+        {chat?.map((q,i)=>
+        <button className="main_chat_container" key={i} onClick={()=>nav("/chattingroom",{
+            state : {
+              user_id : q?.user_id
+            }
+          })}>
+          <img src={q?.profile}></img>
           <div className="containerRight">
-            <div className="align-items"><span className="containerLevel">Lv.</span><span className="containerText"> 나무쿵야</span> </div>
-            <div className="containerMessage">ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹ</div>
+            <div className="align-items"><span className="containerLevel">Lv.{q?.level}</span><span className="containerText"> {q?.nickname}</span> </div>
+            <div className="containerMessage">{q?.last_message}</div>
          
           </div>
-          <div className="time">32분전</div>
+          <div className="time">{q?.last_message_time}</div>
           </button>
+          )}
       </div>
       }
       <div className={`main_friend_${active}`}>
        <div className="friendSearchBox">
-  <input className="friendSearch" type="text" placeholder=" 친구 검색" />
-  <button className="friendSearchBtn">검색</button>
-   <div className="main_friend_container">
-          <img src={tree}></img>
+  <input onKeyDown={(e)=>e.key ==="Enter" && getUser()} className="friendSearch" type="text" placeholder=" 친구 검색" value={input} onChange={(e)=>setInput(e.target.value)}/>
+  <button className="friendSearchBtn" onClick={getUser}>검색</button>
+  <div className="friend_container">
+  {user?.map((q,i)=>
+   <div className="main_friend_container" key={i}>
+          <img src={q?.profile}></img>
           <div className="containerRight">
-            <div className="align-items"><span className="containerLevel">Lv.11</span><span className="friendText">나무쿵야야</span> </div>
+            <div className="align-items"><span className="containerLevel">Lv.{q?.level}</span><span className="friendText">{q?.name}</span> </div>
           </div>
-          <button className="chatting">채팅하기</button>
+          <button className="chatting" onClick={()=>nav("/chattingroom",{
+            state : {
+              user_id : q?.id
+            }
+          })}>채팅하기</button>
+          </div>
+          )}
           </div>
 </div>
+
       </div>
 
       </div>

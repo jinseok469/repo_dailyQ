@@ -7,10 +7,10 @@ import Button from "../components/Button";
 import Days from "../components/Days";
 import quizbutton from "../assets/quizbutton.png";
 import rankingbutton from "../assets/rankingbutton.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios, { AxiosError } from "axios";
-
+import quizCheck from "../assets/quizCheck.png";
 
 
 const Home = () => {
@@ -37,12 +37,12 @@ const Home = () => {
             },
           }
         );
-
         setState(
-          res?.data?.today_exam?.correct?.count +
-            res?.data?.today_exam?.incorrect?.count
+          (res?.data?.today_exam?.correct?.count ?? 0 )+
+            (res?.data?.today_exam?.incorrect?.count ?? 0)
         );
         setMonthlyExam(res?.data?.monthly_exam);
+      
         setRegion(res?.data?.region);
       } catch (err) {
         const error = err as AxiosError;
@@ -51,7 +51,6 @@ const Home = () => {
     };
     getQuiz();
   }, [todayDate]);
-
   return (
     <div className="Home">
       <section className="HomeHeader">
@@ -82,13 +81,21 @@ const Home = () => {
         <Days mode={radio} date={date} monthlyExam={monthlyExam} />
 
         <div className="HomeMain_Quizbutton">
+          {state < 10 && 
           <button
             onClick={() =>
-              state === 10 ? nav("/quizcomplete") : nav("/quizwaiting")
+             nav("/quizwaiting")
             }
           >
             <img src={quizbutton}></img>
-          </button>
+          </button>}
+          {state === 10 &&  <button
+            onClick={() =>
+             nav("/quizcomplete")
+            }
+          >
+            <img src={quizCheck}></img>
+          </button>}
         </div>
         <div className="HomeMain_RankButton">
           <h3>현재 {region}에서 내 순위는?</h3>
