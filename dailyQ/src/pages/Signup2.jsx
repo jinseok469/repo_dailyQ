@@ -10,6 +10,7 @@ import Select from "react-select";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const Signup2 = () => {
   const nav = useNavigate();
   const [imgClick, setImgClick] = useState(1);
@@ -37,7 +38,7 @@ const Signup2 = () => {
   useEffect(() => {
     const region = async () => {
       try {
-        const res = await axios.get("http://3.38.212.8:8000/region");
+        const res = await axios.get("https://dailyq.jeeyeonnn.site/region");
 
         const options = res.data.map((region) => ({
           value: region.id, // Select 내부에서 value로 사용됨
@@ -53,7 +54,7 @@ const Signup2 = () => {
     const regionSub = async () => {
       try {
         const res = await axios.get(
-          `http://3.38.212.8:8000/region/${selectRegion}/sub-regions`
+          `https://dailyq.jeeyeonnn.site/region/${selectRegion}/sub-regions`
         );
         const options = res.data.map((region) => ({
           value: region.id,
@@ -77,16 +78,28 @@ const Signup2 = () => {
       refs.name.current.focus();
       return;
     } else if (!selectMain) {
-      alert("지역을 선택해주세요 !");
+      Swal.fire({
+        icon: "error",
+        title: "오류 발생!",
+        text: "지역을 선택해주세요 !",
+        confirmButtonText: "확인",
+        confirmButtonColor: "#00664F",
+      });
       return;
     } else if (!selectSub) {
-      alert("지역을 선택해주세요 !");
+      Swal.fire({
+        icon: "error",
+        title: "오류 발생!",
+        text: "지역을 선택해주세요 !",
+        confirmButtonText: "확인",
+        confirmButtonColor: "#00664F",
+      });
       return;
     }
 
     try {
       const res = await axios.post(
-        "http://3.38.212.8:8000/account/onboarding",
+        "https://dailyq.jeeyeonnn.site/account/onboarding",
         newItem,
         {
           headers: {

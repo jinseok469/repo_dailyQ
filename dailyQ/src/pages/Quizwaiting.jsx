@@ -2,9 +2,11 @@ import "./Quizwaiting.css";
 import { useEffect, useState } from "react";
 import QuizHeader from "../assets/QuizHeader.png";
 import Button from "../components/Button";
-import notice from "../assets/notice.png";
+import Notice from "../assets/Notice.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import spinner2 from "../assets/spinner2.gif";
 const Quizwaiting = () => {
   const [barState, setBarState] = useState(1);
   const [number, setNumber] = useState(0);
@@ -43,7 +45,7 @@ const Quizwaiting = () => {
     };
     try {
       const res = await axios.post(
-        "http://3.38.212.8:8000/user/quiz",
+        "https://dailyq.jeeyeonnn.site/user/quiz",
         newItem,
         {
           headers: {
@@ -57,13 +59,13 @@ const Quizwaiting = () => {
     }
   };
   console.log(barState);
-
+  console.log(QuizHeader);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const getQuiz = async () => {
       try {
         const res = await axios.get(
-          `http://3.38.212.8:8000/user/quiz?date=${todayDate}`,
+          `https://dailyq.jeeyeonnn.site/user/quiz?date=${todayDate}`,
           {
             headers: {
               "access-token": `Bearer ${token}`,
@@ -72,11 +74,7 @@ const Quizwaiting = () => {
         );
         setQuiz(res.data.questions);
         console.log("solved =" + res.data.solved_index);
-        setBarState(() => {
-          if (res.data.solved_index === 0) {
-            return 1;
-          }
-        });
+        setBarState(() => res?.data?.solved_index + 1);
       } catch (err) {
         console.log(err?.detail);
       }
@@ -136,7 +134,13 @@ const Quizwaiting = () => {
                 setSubmit("done");
                 quizSubmit();
               } else {
-                alert("정답을 선택해주세요 !");
+                Swal.fire({
+                  icon: "error",
+                  title: "오류 발생!",
+                  text: "정답을 선택해주세요!",
+                  confirmButtonText: "확인",
+                  confirmButtonColor: "#00664F",
+                });
               }
               if (number === quiz[barState - 1].answer) {
                 setView((prev) => {
@@ -190,7 +194,7 @@ const Quizwaiting = () => {
           </div>
         </div>
         <div className="Quizwaiting_main_success_footer">
-          <img src={notice}></img> 이 문제는 {quiz[barState - 1].correct_rate}
+          ❗️ 이 문제는 {quiz[barState - 1].correct_rate}
           %가 정답을 맞췄어요!
         </div>
       </div>

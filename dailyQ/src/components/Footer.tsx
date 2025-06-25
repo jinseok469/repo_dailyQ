@@ -5,7 +5,7 @@ import footerPerson from "../assets/footerPerson.png";
 import footerHome from "../assets/footerHome.png";
 import { useEffect, useState } from "react";
 import type { Location } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
@@ -16,19 +16,21 @@ type FooterType = {
 
 const Footer = ({ location }:FooterType) => {
   const [state, setState] = useState("");
+  const locations = useLocation();
+  const path = locations.pathname;
   const nav = useNavigate();
   useEffect(() => {
-    if (location?.pathname === "/home") {
+    if (path === "/home") {
       setState("home");
-    } else if (location?.pathname === "/rank") {
+    } else if (path === "/rank") {
       setState("rank");
-    } else if (location?.pathname === "/chat") {
+    } else if (path === "/chat") {
       setState("chat");
-    } else if (location?.pathname === "/person") {
+    } else if (path === "/person") {
       setState("person");
-    } else if (location?.pathname === "/chattingroom") {
+    } else if (path === "/chattingroom") {
       setState("chattingroom");
-    } else if (location?.pathname === "/quizcomplete") {
+    } else if (path === "/quizcomplete") {
       setState("quizcomplete");
     } else {
       setState("");

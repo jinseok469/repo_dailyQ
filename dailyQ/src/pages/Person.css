@@ -4,6 +4,8 @@
   height: 100%;
   padding: 30px 30px;
   padding-bottom: 150px;
+  position: relative;
+  min-height: 100vh;
 }
 
 .Person button{
@@ -335,11 +337,22 @@
   width: fit-content;
 }
 
-.Person_footer_top img{
-  margin-top:10px;
-  width: 100%;
-  object-fit: contain;
+.Person_footer_top button,
+.Person_footer_footer
+button{
+  display: inline-block;
+  padding: 0;
+  border: 5px solid transparent;
+  background-color: #E9F5EF;
+  line-height: 0; /* ✅ 이것이 틈 제거 핵심 */
+}
 
+
+.Person_footer_top img{
+  display: block;
+  width: 100%;
+   object-fit: contain;
+   margin-top:5px;
 }
 
 .Person_footer_footer{
@@ -351,11 +364,12 @@
   font-weight: 700;
   margin-top:40px;
   width: fit-content;
+  height: fit-content;
 }
 
 .Person_footer_footer img{
-  margin-top:10px;
+  margin-top:5px;
+  display: block;
   width: 100%;
   object-fit: contain;
-
 }

@@ -241,3 +241,29 @@ margin-bottom: 100px;
   padding: 8px 10px;
   border-radius: 15px;
 }
+
+.containerRight_right{
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  height: 60px; /* 또는 원하는 높이 예: 80px */
+}
+.count{
+  width: 100%;
+justify-content: center;
+  display: flex;
+}
+
+.unread_count{
+  background-color: #00664F;
+  color:white;
+  border-radius: 20px;
+  padding:5px;
+  width: 80%;
+  
+}
+
+.unread_count_none{
+  display: none;
+}

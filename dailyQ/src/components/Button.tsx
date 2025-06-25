@@ -2,7 +2,7 @@ import "./Button.css";
 
 type ButtonType = {
   text : string,
-  onClick : () => void,
+  onClick : () => void ,
   className: string,
   children? : any | null,
 }

@@ -51,7 +51,7 @@ const Signup = () => {
     }
     try {
       const res = await axios.post(
-        "http://3.38.212.8:8000/account/sign-up",
+        "https://dailyq.jeeyeonnn.site/account/sign-up",
         newItem
       );
       if (res.data.access_token) {

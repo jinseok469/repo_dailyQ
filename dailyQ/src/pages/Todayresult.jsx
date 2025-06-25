@@ -69,11 +69,14 @@ const Todayresult = () => {
     const token = localStorage.getItem("token");
     const getResult = async () => {
       try {
-        const res = await axios.get("http://3.38.212.8:8000/user/quiz/result", {
-          headers: {
-            "access-token": `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          "https://dailyq.jeeyeonnn.site/user/quiz/result",
+          {
+            headers: {
+              "access-token": `Bearer ${token}`,
+            },
+          }
+        );
         setState(res.data);
         console.log(res.data);
       } catch (err) {

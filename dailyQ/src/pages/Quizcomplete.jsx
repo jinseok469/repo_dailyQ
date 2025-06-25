@@ -64,7 +64,7 @@ const Quizcomplete = () => {
     const getQuiz = async () => {
       try {
         const res = await axios.get(
-          `http://3.38.212.8:8000/user/monthly?date=${todayDate}`,
+          `https://dailyq.jeeyeonnn.site/user/monthly?date=${todayDate}`,
           {
             headers: {
               "access-token": `Bearer ${token}`,
@@ -149,8 +149,8 @@ const Quizcomplete = () => {
                 <Button className={"badge"} text={q.difficult}></Button>
               </div>
               <div className="question_header">{q.question}</div>
-              <div className="question_button">
-                <div className="question_button_top">
+              <div className="question_button2">
+                <div className="question_button_top2">
                   <button
                     className={`${1 === q.answer ? "incorrect " : ""}${
                       1 === q.user_select ? "userSelect" : ""
@@ -168,7 +168,7 @@ const Quizcomplete = () => {
                     {q.select_2}
                   </button>
                 </div>
-                <div className="question_button_bottom">
+                <div className="question_button_bottom2">
                   <button
                     className={`${3 === q.answer ? "incorrect " : ""}${
                       3 === q.user_select ? "userSelect" : ""
@@ -221,8 +221,8 @@ const Quizcomplete = () => {
                 <Button className={"badge"} text={q.difficult}></Button>
               </div>
               <div className="question_header">{q.question}</div>
-              <div className="question_button">
-                <div className="question_button_top">
+              <div className="question_button2">
+                <div className="question_button_top2">
                   <button className={1 === q.answer ? "correct" : ""}>
                     {q.select_1}
                   </button>
@@ -230,7 +230,7 @@ const Quizcomplete = () => {
                     {q.select_2}
                   </button>
                 </div>
-                <div className="question_button_bottom">
+                <div className="question_button_bottom2">
                   <button className={3 === q.answer ? "correct" : ""}>
                     {q.select_3}
                   </button>

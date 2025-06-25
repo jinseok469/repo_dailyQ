@@ -196,6 +196,7 @@
 .Quizwaiting_main_success_footer img{
   width: 20px;
   margin-right: 5px;
+  object-fit: contain;
 }
 
 .Quizwaiting_success_{

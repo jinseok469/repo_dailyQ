@@ -1,7 +1,7 @@
 import "./Chat.css";
 import quizHeader from "../assets/quizHeader.png";
 import Footer from "../components/Footer";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import tree from "../assets/tree.png";
 import { useLocation } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -26,6 +26,8 @@ type UserSerchType = {
 }
 
 
+
+
 const Chat = () =>{
   const[active, setActive] = useState<String>("chat");
   const [state, setState] = useState<number>(0);
@@ -34,11 +36,12 @@ const Chat = () =>{
   const [input, setInput] = useState<string>("");
   const location = useLocation();
   const nav = useNavigate();
+  const socketRef = useRef<WebSocket | null>(null);
   const getUser = async () =>{
     const token = localStorage.getItem("token");
     if(input){
     try{
-      const res = await axios.get(`http://3.38.212.8:8000/user/search?keyword=${input}`,{
+      const res = await axios.get(`https://dailyq.jeeyeonnn.site/user/search?keyword=${input}`,{
         headers:{
           "access-token" : `Bearer ${token}`
         }
@@ -54,11 +57,79 @@ const Chat = () =>{
   }
   }
 
+  useEffect(() => {
+      const token = localStorage?.getItem("token");
+  
+      const ws = new WebSocket(`ws://3.38.212.8:8000/chat/ws?token=${token}`);
+      socketRef.current = ws;
+  
+      ws.onopen = () => {
+        console.log("✅ WebSocket connected");
+        // 필요하면 초기 메시지 전송
+        // ws.send(JSON.stringify({ type: "join", user_id: 10 }));
+      };
+  
+      ws.onmessage = (event) => {
+        console.log("📩 Message received:", event.data);
+       try {
+      const data = JSON.parse(event.data);
+  
+      const newMessage: ChatType = {
+        last_message: data.content,
+    last_message_time: data.created_at,
+    level: 0,
+    nickname: "",
+    profile: "",
+    unread_count: 0,
+    user_id: data.user_id,
+      };
+  
+     setChat(prev => {
+      if (!prev) return [newMessage];
+      
+      // user_id가 같은 방이 있는지 찾기
+      const existingIndex = prev.findIndex(chat => chat.user_id === newMessage.user_id);
+      if (existingIndex !== -1) {
+        // 기존 배열 복사
+        const updated = [...prev];
+        // 해당 방 정보 업데이트
+     updated[existingIndex] = {
+      ...updated[existingIndex],
+      last_message: newMessage.last_message,
+      last_message_time: newMessage.last_message_time,
+      unread_count : updated[existingIndex].unread_count+1,
+    };
+        
+        return updated;
+      } else {
+        // 새 방 추가
+        return [...prev, newMessage];
+      }
+     });
+    } catch (err) {
+      console.error("❌ Failed to parse WebSocket message", err);
+    }
+      };
+  
+      ws.onerror = (error) => {
+        console.error("❌ WebSocket error:", error);
+      };
+  
+      ws.onclose = () => {
+        console.warn("🔌 WebSocket closed");
+      };
+  
+      // 컴포넌트 언마운트 시 소켓 종료
+      return () => {
+        ws.close();
+      };
+    }, []);
+
   useEffect(()=>{
     const token = localStorage.getItem("token");
       const getChat = async () =>{
         try{
-          const res = await axios.get("http://3.38.212.8:8000/chat/list",{
+          const res = await axios.get("https://dailyq.jeeyeonnn.site/chat/list",{
             headers : {
               "access-token" : `Bearer ${token}`
             }
@@ -103,7 +174,10 @@ const Chat = () =>{
             <div className="containerMessage">{q?.last_message}</div>
          
           </div>
+          <div className="containerRight_right">
+            <div className="count"><div className={`unread_count${q?.unread_count > 0 ? "" : "_none"}`}>{q?.unread_count}</div></div>
           <div className="time">{q?.last_message_time}</div>
+          </div>
           </button>
           )}
       </div>

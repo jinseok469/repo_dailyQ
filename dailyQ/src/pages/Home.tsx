@@ -30,7 +30,7 @@ const Home = () => {
     const getQuiz = async () => {
       try {
         const res = await axios.get(
-          `http://3.38.212.8:8000/user/monthly?date=${todayDate}`,
+          `https://dailyq.jeeyeonnn.site/user/monthly?date=${todayDate}`,
           {
             headers: {
               "access-token": `Bearer ${token}`,

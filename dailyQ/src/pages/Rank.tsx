@@ -41,7 +41,7 @@ const Rank = () =>{
     const getRank = async ()=>{
       try{
 
-        const res = await axios.get("http://3.38.212.8:8000/ranking",{
+        const res = await axios.get("https://dailyq.jeeyeonnn.site/ranking",{
           headers : {
             "access-token" : `Bearer ${token}`
           }

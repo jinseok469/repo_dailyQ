@@ -1,21 +1,23 @@
 import "./Person.css";
 import quizHeader from "../assets/quizHeader.png";
-import flower from "../assets/flower.png";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import fifty from "../assets/fifty.png";
 import seventyfive from "../assets/seventyfive.png";
 import { Radar } from "react-chartjs-2";
 import { RadialLinearScale, PointElement, LineElement, Filler } from "chart.js";
 import levelUp from "../assets/levelUp.png";
 import pink from "../assets/pink.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import aiWrong from "../assets/aiWrong.png";
 import wrongQuiz from "../assets/wrongQuiz.png";
 import axios, { AxiosError } from "axios";
 import { Location } from "react-router-dom";
+import aiButton from "../assets/aiButton.png";
+import pdfButton from "../assets/pdfButton.png";
 import Footer from "../components/Footer";
+import Pdffirst from "./Pdffirst";
 
 interface UserResponse {
   created_date: string;
@@ -83,6 +85,8 @@ const Person = () => {
   const location = useLocation();
   const [state, setState] = useState<UserResponse | null>(null);
   const [gauge , setGauge] = useState<number>(0);
+  const pdfRef = useRef<any>(null);
+  const nav = useNavigate();
   const [news2, setNews2] = useState<NewsType>({
     bad: "",
     good:"",
@@ -213,7 +217,7 @@ const options = {
     const token = localStorage.getItem("token");
     const myLevel = async () => {
       try {
-        const res = await axios.get<UserResponse | null>("http://3.38.212.8:8000/user", {
+        const res = await axios.get<UserResponse | null>("https://dailyq.jeeyeonnn.site/user", {
           headers: {
             "access-token": `Bearer ${token}`,
           },
@@ -361,15 +365,22 @@ const options = {
           </div>
         </div>
         <div className="Person_footer_top">
-          <div>AI 분석 완료! 유사한 문제로 틀린 문제 다시 도전해보세요 🚀</div>
-          <img src={aiWrong} alt="aiwrong"></img>
+          <div>오늘의 공부,AI 선생님이 리포트로 정리해드릴게요! 🚀</div>
+          <button onClick={()=>nav("/aireport")}><img src={aiButton} alt="aiwrong" ></img></button>
         </div>
         <div className="Person_footer_footer">
-          <div>아쉽게 놓친 문제, 다시 보면 정답률이 쭉 올라갈 거에요! 💪</div>
-          <img src={wrongQuiz}></img>
+          <div>다시 도전! PDF로 복습하고 더 단단해져요 💪</div>
+          <button onClick={()=>  {
+      pdfRef?.current?.downloadPdf();
+     
+          }
+   }><img src={pdfButton}></img></button>
         </div>
       </section>
       <Footer location={location}></Footer>
+      <div style={{ position: "absolute", top: "-9999px", left: "-9999px" }}>
+  <Pdffirst ref={pdfRef}/>
+</div>
     </div>
   );
 };

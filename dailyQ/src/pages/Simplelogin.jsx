@@ -37,7 +37,7 @@ const Simplelogin = () => {
 
     try {
       const res = await axios.post(
-        "http://3.38.212.8:8000/account/sign-in",
+        "https://dailyq.jeeyeonnn.site/account/sign-in",
         newItem
       );
       console.log(res?.data);
